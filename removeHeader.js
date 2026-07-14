@@ -1,0 +1,1 @@
+const headers = $request.headers; for (const k in headers) if (k.toLowerCase() === 'x-revenuecat-etag') delete headers[k]; $done({ headers });
