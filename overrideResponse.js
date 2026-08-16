@@ -39,23 +39,22 @@ if (body) {
       "expires_date": "2099-12-31T23:59:59Z"
     };
 
-    if (obj.subscriber) {
-      if (!obj.subscriber.subscriptions) obj.subscriber.subscriptions = {};
-      if (!obj.subscriber.entitlements) obj.subscriber.entitlements = {};
+    if (!obj.subscriber) obj.subscriber = {};
+    if (!obj.subscriber.subscriptions) obj.subscriber.subscriptions = {};
+    if (!obj.subscriber.entitlements) obj.subscriber.entitlements = {};
 
-      // Inject Locket Gold subscription & entitlement
-      obj.subscriber.subscriptions[goldProductId] = subscriptionGold;
-      obj.subscriber.subscriptions["locket_1600_1y"] = subscriptionGold; // Fallback to old product ID
-      obj.subscriber.entitlements["Gold"] = entitlementGold;
+    // Inject Locket Gold subscription & entitlement
+    obj.subscriber.subscriptions[goldProductId] = subscriptionGold;
+    obj.subscriber.subscriptions["locket_1600_1y"] = subscriptionGold; // Fallback to old product ID
+    obj.subscriber.entitlements["Gold"] = entitlementGold;
 
-      // Inject generic Pro entitlement for other apps
-      obj.subscriber.subscriptions[proProductId] = subscriptionPro;
-      obj.subscriber.entitlements["pro"] = entitlementPro;
-      obj.subscriber.entitlements["premium"] = {
-        ...entitlementPro,
-        "product_identifier": proProductId
-      };
-    }
+    // Inject generic Pro entitlement for other apps
+    obj.subscriber.subscriptions[proProductId] = subscriptionPro;
+    obj.subscriber.entitlements["pro"] = entitlementPro;
+    obj.subscriber.entitlements["premium"] = {
+      ...entitlementPro,
+      "product_identifier": proProductId
+    };
 
     body = JSON.stringify(obj);
   } catch (e) {
